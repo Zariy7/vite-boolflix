@@ -20,18 +20,54 @@ export default {
       console.log(moviesSearch);
 
       axios.get(moviesSearch).then((response) =>{
-        store.movies = response.data.results;
-        console.log(store.movies);
+        store.moviesRaw = response.data.results;
+        store.moviesNew = [];
+
+        store.moviesRaw.forEach(movie => {
+          let movieObj = {
+              title: movie.title,
+              ogTitle: movie.original_title,
+              ogLang: movie.original_language,
+              avgVote: movie.vote_average,
+              totVote: movie.vote_count,
+              summary: movie.overview
+          }
+          
+          store.moviesNew.push(movieObj);
+        });
+
+        //console.log(store.moviesRaw);
+        console.log(store.moviesNew);
       })
     },
     getSeries(){
       let seriesSearch = `${store.seriesEndpoint}`+`${store.search}`;
+      console.log(seriesSearch);
+
       axios.get(seriesSearch).then((response) =>{
-        store.series = response.data.results;
-        console.log(store.series);
-      })
-    }
-  },
+        store.seriesRaw = response.data.results;
+        store.seriesNew = [];
+        
+
+        store.seriesRaw.forEach(series => {
+          let seriesObj = {
+              title: series.name,
+              ogTitle: series.original_name,
+              ogLang: series.original_language,
+              ogCountry: series.origin_country[0],
+              avgVote: series.vote_average,
+              totVote: series.vote_count,
+              summary: series.overview,
+          }
+          
+          store.seriesNew.push(seriesObj);
+        });
+        
+        //console.log(store.seriesRaw);
+        console.log(store.seriesNew);
+      });
+    },
+  }
 }
 </script>
 

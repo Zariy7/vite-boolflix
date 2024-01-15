@@ -1,8 +1,12 @@
 <script>
 import { store } from '../store.js';
+import Card from './Card.vue';
 
 export default {
   name: 'AppSeries',
+  components:{
+    Card
+  },
   data (){
     return{
         store,
@@ -13,13 +17,10 @@ export default {
 
 <template>
     <h1>Series</h1>
-    <div v-for="series, index in store.series" :key="index">
-        {{ series.name }}
-        {{ series.original_name }}
-        {{ series.origin_country }}
-        {{ series.original_language }}
-        {{ series.vote_average }}
-        {{ series.vote_count }}
+    <div class="d-flex">
+      <div class="row">
+        <Card v-for="series, index in store.seriesNew" :key="index" :card="series" />
+      </div>
     </div>
 </template>
 

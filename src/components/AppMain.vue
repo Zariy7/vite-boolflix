@@ -18,8 +18,8 @@ export default {
 </script>
 
 <template>
-    <AppSeries />
-    <AppMovies />
+  <AppMovies />
+  <AppSeries />
 </template>
 
 <style lang="scss" scoped>
