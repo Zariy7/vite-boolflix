@@ -17,10 +17,10 @@ export default {
 
 <template>
     <h1>Series</h1>
-    <div v-if="store.seriesNew.length != 0">
+    <div v-if="store.media.series.new.length != 0">
       <div class="d-flex">
         <div class="row w-100">
-          <Card v-for="series, index in store.seriesNew" :key="index" :card="series" />
+          <Card v-for="series, index in store.media.series.new" :key="index" :card="series" />
         </div>
       </div>
     </div>

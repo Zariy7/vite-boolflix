@@ -15,83 +15,52 @@ export default {
     }
   },
   methods:{
-    getMovies(){
-      let moviesSearch = `${store.moviesEndpoint}`+`${store.search}`;
-      //console.log(moviesSearch);
-      store.moviesNew.length = 0;
+    getMedia(mediaType){
+      let media = mediaType;
+      console.log(store.media);
+      let mediaSearch = `${media.endpoint}`+`${store.search}`;
+      media.new.length = 0;
 
-      axios.get(moviesSearch).then((response) =>{
-        store.moviesRaw = response.data.results;
+      axios.get(mediaSearch).then((response) =>{
+        media.raw = response.data.results;
 
-        store.moviesRaw.forEach(movie => {
-          let movieObj = {
-              title: movie.title,
-              ogTitle: movie.original_title,
-              ogLang: movie.original_language,
-              avgVote: movie.vote_average,
-              totVote: movie.vote_count,
-              summary: movie.overview,
-              image: movie.poster_path,
-              genres: [],
+        media.raw.forEach(elem => {
+          let mediaObj = {
+              title: elem.name || elem.title,
+              ogTitle: elem.original_name || elem.original_title,
+              ogLang: elem.original_language,
+              avgVote: elem.vote_average,
+              totVote: elem.vote_count,
+              summary: elem.overview,
+              image: elem.poster_path,
+              genres: elem.genre_ids,
           }
 
-          store.movieGenres.forEach(genre => {
-            if((movie.genre_ids).includes(genre.id)){
-              movieObj.genres.push(genre.name);
+          for(let i = 0; i<mediaObj.genres.length; i++){
+            for(let j = 0; j<media.genres.length; j++){
+              if(mediaObj.genres[i] == media.genres[j].id){
+                mediaObj.genres[i] = media.genres[j].name;
+                //console.log(mediaObj.genres[i]);
+              }
             }
-          });
-          
-          store.moviesNew.push(movieObj);
+          }
+
+          //console.log(mediaObj);
+          media.new.push(mediaObj);
         });
-
-        //console.log(store.moviesRaw);
-        //console.log(store.moviesNew);
-      })
-    },
-    getSeries(){
-      let seriesSearch = `${store.seriesEndpoint}`+`${store.search}`;
-      //console.log(seriesSearch);
-      store.seriesNew.length = 0;
-
-      axios.get(seriesSearch).then((response) =>{
-        store.seriesRaw = response.data.results;
-
-        store.seriesRaw.forEach(series => {
-          let seriesObj = {
-              title: series.name,
-              ogTitle: series.original_name,
-              ogLang: series.original_language,
-              avgVote: series.vote_average,
-              totVote: series.vote_count,
-              summary: series.overview,
-              image: series.poster_path,
-              genres: [],
-            }
-          
-          store.seriesGenres.forEach(genre => {
-            if((series.genre_ids).includes(genre.id)){
-              seriesObj.genres.push(genre.name);
-            }
-          });
-
-          store.seriesNew.push(seriesObj);
-        });
-        
-        //console.log(store.seriesRaw);
-        //console.log(store.seriesNew);
-      });
-    },
+    });
+  }
   },
   created(){
     {
       axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=469f698fb63250e8075d7a89b63fe70e').then((response) =>{
-        store.movieGenres = response.data.genres;
-        console.log(store.movieGenres);
+        store.media.movies.genres = response.data.genres;
+        //console.log(store.media.movies.genres);
       });
 
       axios.get('https://api.themoviedb.org/3/genre/tv/list?api_key=469f698fb63250e8075d7a89b63fe70e').then((response) =>{
-        store.seriesGenres = response.data.genres;
-        console.log(store.seriesGenres);
+        store.media.series.genres = response.data.genres;
+        //console.log(store.media.series.genres);
       });
     }
   }
@@ -99,7 +68,7 @@ export default {
 </script>
 
 <template>
-  <AppHeader @search="getMovies(); getSeries()"/>
+  <AppHeader @search="getMedia(store.media.movies); getMedia(store.media.series)"/>
   <AppMain />
 </template>
 
