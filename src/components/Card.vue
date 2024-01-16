@@ -1,4 +1,6 @@
 <script>
+import { store } from '.././store.js'
+
 export default {
     props: {
         card: Object
@@ -20,6 +22,25 @@ export default {
         },
         VoteRounded(avgVote){
             return (Math.round(avgVote))/2;
+        },
+        StarRatings(roundedVote){
+            let starsArray = [];
+
+            for(let i = 1; i<=5; i++){
+                if(i<=roundedVote){
+                    starsArray.push('fa-solid fa-star');
+                }
+                else{
+                    if((i-0.5) == roundedVote){
+                        starsArray.push('fa-solid fa-star-half-stroke');
+                    }
+                    else{
+                        starsArray.push('fa-regular fa-star');
+                    }
+                }
+            }
+
+            return starsArray;
         }
     }
 }
@@ -52,7 +73,7 @@ export default {
 
         <div>
             <span class="card-subtitle">Average Vote: </span>
-            <span>{{ VoteRounded(card.avgVote) }} / 5</span>
+            <i v-for="stars, index in StarRatings(VoteRounded(card.avgVote))" :key="index" :class="stars"></i>
         </div>
 
         <div>
