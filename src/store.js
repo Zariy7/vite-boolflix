@@ -8,4 +8,6 @@ export const store = reactive({
     moviesNew: [],
     seriesRaw: [],
     seriesNew: [],
+    movieGenres: [],
+    seriesGenres: [],
 })

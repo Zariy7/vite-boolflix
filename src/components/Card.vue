@@ -83,10 +83,23 @@ export default {
                     <span>{{ card.totVote }}</span>
                 </div>
         
+                <div v-if="card.genres.length != 0">
+                    <span class="card-subtitle">Genres: </span>
+                    <span v-for="genre, index in card.genres" :key="index">
+                        <span v-if="index == card.genres.length-1">
+                            {{ genre }}.
+                        </span>
+                        <span v-else>
+                            {{ genre }},
+                        </span>
+                    </span>
+                </div>
+
                 <div>
                     <span class="card-subtitle">Summary: </span>
                     <span class="span-summary">{{ card.summary }}</span>
                 </div>
+
             </div>
         </div>
     </div>

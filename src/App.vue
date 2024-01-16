@@ -31,8 +31,15 @@ export default {
               avgVote: movie.vote_average,
               totVote: movie.vote_count,
               summary: movie.overview,
-              image: movie.poster_path
+              image: movie.poster_path,
+              genres: [],
           }
+
+          store.movieGenres.forEach(genre => {
+            if((movie.genre_ids).includes(genre.id)){
+              movieObj.genres.push(genre.name);
+            }
+          });
           
           store.moviesNew.push(movieObj);
         });
@@ -57,7 +64,8 @@ export default {
               avgVote: series.vote_average,
               totVote: series.vote_count,
               summary: series.overview,
-              image: series.poster_path
+              image: series.poster_path,
+              genres: [],
             }
           
           store.seriesNew.push(seriesObj);
@@ -67,6 +75,19 @@ export default {
         //console.log(store.seriesNew);
       });
     },
+  },
+  created(){
+    {
+      axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=469f698fb63250e8075d7a89b63fe70e').then((response) =>{
+        store.movieGenres = response.data.genres;
+        console.log(store.movieGenres);
+      })
+
+      /* axios.get('https://developer.themoviedb.org/reference/genre-tv-list?api_key=469f698fb63250e8075d7a89b63fe70e').then((response) =>{
+        store.seriesGenres = response.data.genres;
+        console.log(store.seriesGenres);
+      }) */
+    }
   }
 }
 </script>
