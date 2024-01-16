@@ -1,6 +1,4 @@
 <script>
-import { store } from '.././store.js'
-
 export default {
     props: {
         card: Object
@@ -43,8 +41,8 @@ export default {
             }
 
             return starsArray;
-        }
-    }
+        },
+    },
 }
 </script>
 
@@ -93,6 +91,10 @@ export default {
                             {{ genre }},
                         </span>
                     </span>
+                </div>
+
+                <div>
+                    <span class="card-subtitle">Cast: </span>
                 </div>
 
                 <div>

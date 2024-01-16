@@ -15,9 +15,22 @@ export default {
     }
   },
   methods:{
+    getCredits(type, id){
+      let credits = [];
+
+      axios.get(`https://api.themoviedb.org/3/` + `${type}` + `/` + `${id}` + `/credits?api_key=469f698fb63250e8075d7a89b63fe70e`).then((response) =>{
+        for(let i = 0; i<response.data.cast.length; i++){
+          if(response.data.cast[i].known_for_department === "Acting"){
+            credits.push(response.data.cast[i].name);
+          }
+        }
+      })
+
+      return credits;
+    },
     getMedia(mediaType){
       let media = mediaType;
-      console.log(store.media);
+      //console.log(store.media);
       let mediaSearch = `${media.endpoint}`+`${store.search}`;
       media.new.length = 0;
 
@@ -45,11 +58,20 @@ export default {
             }
           }
 
+          if(media.endpoint.includes('/tv?')){
+            mediaObj.credits = this.getCredits('tv', elem.id);
+          }
+      
+          if(media.endpoint.includes('/movie?')){
+            mediaObj.credits = this.getCredits('movie', elem.id);
+          }
+
           //console.log(mediaObj);
           media.new.push(mediaObj);
         });
-    });
-  }
+      });
+    },
+    
   },
   created(){
     {
