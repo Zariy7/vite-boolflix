@@ -26,8 +26,10 @@ export default {
 </script>
 
 <template>
-    <div class="w-20 m-2 bg-black text-white custom-card">
-
+    <div class="w-20 custom-card-front">
+        <img :src="`https://image.tmdb.org/t/p/original/${card.image}`" :alt="card.title">
+    </div>
+    <div class="w-20 m-2 bg-black text-white custom-card-back">
         <div>
             <span class="card-subtitle">Title: </span>
             <span>{{ card.title }}</span>
@@ -62,12 +64,18 @@ export default {
             <span class="card-subtitle">Summary: </span>
             <span class="span-summary">{{ card.summary }}</span>
         </div>
-
     </div>
 </template>
 
-<style lang="scss">
-.custom-card{
+<style lang="scss" scoped>
+.custom-card-front{
+    img{
+        height: 500px;
+        width: 100%;
+        object-fit: fill;
+    }
+}
+.custom-card-back{
     height: 500px;
     
     .card-subtitle{

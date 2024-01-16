@@ -17,7 +17,7 @@ export default {
   methods:{
     getMovies(){
       let moviesSearch = `${store.moviesEndpoint}`+`${store.search}`;
-      console.log(moviesSearch);
+      //console.log(moviesSearch);
 
       axios.get(moviesSearch).then((response) =>{
         store.moviesRaw = response.data.results;
@@ -30,19 +30,20 @@ export default {
               ogLang: movie.original_language,
               avgVote: movie.vote_average,
               totVote: movie.vote_count,
-              summary: movie.overview
+              summary: movie.overview,
+              image: movie.poster_path
           }
           
           store.moviesNew.push(movieObj);
         });
 
         //console.log(store.moviesRaw);
-        console.log(store.moviesNew);
+        //console.log(store.moviesNew);
       })
     },
     getSeries(){
       let seriesSearch = `${store.seriesEndpoint}`+`${store.search}`;
-      console.log(seriesSearch);
+      //console.log(seriesSearch);
 
       axios.get(seriesSearch).then((response) =>{
         store.seriesRaw = response.data.results;
@@ -58,13 +59,14 @@ export default {
               avgVote: series.vote_average,
               totVote: series.vote_count,
               summary: series.overview,
+              image: series.poster_path
           }
           
           store.seriesNew.push(seriesObj);
         });
         
         //console.log(store.seriesRaw);
-        console.log(store.seriesNew);
+        //console.log(store.seriesNew);
       });
     },
   }
