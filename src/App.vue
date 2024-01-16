@@ -18,10 +18,10 @@ export default {
     getMovies(){
       let moviesSearch = `${store.moviesEndpoint}`+`${store.search}`;
       //console.log(moviesSearch);
+      store.moviesNew.length = 0;
 
       axios.get(moviesSearch).then((response) =>{
         store.moviesRaw = response.data.results;
-        store.moviesNew = [];
 
         store.moviesRaw.forEach(movie => {
           let movieObj = {
@@ -44,23 +44,21 @@ export default {
     getSeries(){
       let seriesSearch = `${store.seriesEndpoint}`+`${store.search}`;
       //console.log(seriesSearch);
+      store.seriesNew.length = 0;
 
       axios.get(seriesSearch).then((response) =>{
         store.seriesRaw = response.data.results;
-        store.seriesNew = [];
-        
 
         store.seriesRaw.forEach(series => {
           let seriesObj = {
               title: series.name,
               ogTitle: series.original_name,
               ogLang: series.original_language,
-              ogCountry: series.origin_country[0],
               avgVote: series.vote_average,
               totVote: series.vote_count,
               summary: series.overview,
               image: series.poster_path
-          }
+            }
           
           store.seriesNew.push(seriesObj);
         });

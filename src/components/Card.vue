@@ -57,7 +57,7 @@ export default {
             </div>
             
             <!-- BACK CARD: DATA -->
-            <div class="bg-black text-white custom-card-back">
+            <div class="bg-black text-white custom-card-back p-1">
                 <div>
                     <span class="card-subtitle">Title: </span>
                     <span>{{ card.title }}</span>
@@ -72,12 +72,7 @@ export default {
                     <span class="card-subtitle">Original Language: </span>
                     <span :class="`fi fi-${LanguageFlag(card.ogLang)}`"></span>
                 </div>
-                
-                <div v-if="card.hasOwnProperty('ogCountry')">
-                    <span class="card-subtitle">Origin Country: </span>
-                    <span :class="`fi fi-${card.ogCountry.toLowerCase()}`"></span>
-                </div>
-        
+
                 <div>
                     <span class="card-subtitle">Average Vote: </span>
                     <i v-for="stars, index in StarRatings(VoteRounded(card.avgVote))" :key="index" :class="stars"></i>
