@@ -42,6 +42,15 @@ export default {
 
             return starsArray;
         },
+        newCredits(credits){
+            let newCredits = [];
+
+            for(let i = 0; i<5; i++){
+                newCredits.push(credits[i]);
+            }
+
+            return newCredits;
+        }
     },
 }
 </script>
@@ -95,6 +104,14 @@ export default {
 
                 <div>
                     <span class="card-subtitle">Cast: </span>
+                    <span v-for="actor, index in newCredits(card.credits)" :key="index">
+                        <span v-if="index == 4">
+                            {{ actor }}.
+                        </span>
+                        <span v-else>
+                            {{ actor }},
+                        </span>
+                    </span>
                 </div>
 
                 <div>

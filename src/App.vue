@@ -67,7 +67,9 @@ export default {
           }
 
           //console.log(mediaObj);
-          media.new.push(mediaObj);
+          setTimeout(()=>{
+            media.new.push(mediaObj);
+          }, 3000)
         });
       });
     },
