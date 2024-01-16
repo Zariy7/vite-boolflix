@@ -18,8 +18,10 @@ export default {
 </script>
 
 <template>
-  <AppMovies />
-  <AppSeries />
+  <div class="mx-5">
+    <AppMovies />
+    <AppSeries />
+  </div>
 </template>
 
 <style lang="scss" scoped>
