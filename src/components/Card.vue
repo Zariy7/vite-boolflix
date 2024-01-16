@@ -49,44 +49,49 @@ export default {
 </script>
 
 <template>
-    <div class="custom-card-container w-20">
-        <div class="custom-card-front">
-            <img :src="`https://image.tmdb.org/t/p/original/${card.image}`" :alt="card.title">
-        </div>
-        <div class="m-2 bg-black text-white custom-card-back">
-            <div>
-                <span class="card-subtitle">Title: </span>
-                <span>{{ card.title }}</span>
-            </div>
-    
-            <div>
-                <span class="card-subtitle">Original Title: </span>
-                <span>{{ card.ogTitle }}</span>
-            </div>
-    
-            <div>
-                <span class="card-subtitle">Original Language: </span>
-                <span :class="`fi fi-${LanguageFlag(card.ogLang)}`"></span>
+    <div class="custom-card-container my-2">
+        <div class="custom-card-frame">
+            <!-- FRONT CARD: IMAGE -->
+            <div class="custom-card-front">
+                <img :src="`https://image.tmdb.org/t/p/original/${card.image}`" :alt="card.title">
             </div>
             
-            <div v-if="card.hasOwnProperty('ogCountry')">
-                <span class="card-subtitle">Origin Country: </span>
-                <span :class="`fi fi-${card.ogCountry.toLowerCase()}`"></span>
-            </div>
-    
-            <div>
-                <span class="card-subtitle">Average Vote: </span>
-                <i v-for="stars, index in StarRatings(VoteRounded(card.avgVote))" :key="index" :class="stars"></i>
-            </div>
-    
-            <div>
-                <span class="card-subtitle">Total Votes: </span>
-                <span>{{ card.totVote }}</span>
-            </div>
-    
-            <div>
-                <span class="card-subtitle">Summary: </span>
-                <span class="span-summary">{{ card.summary }}</span>
+            <!-- BACK CARD: DATA -->
+            <div class="bg-black text-white custom-card-back">
+                <div>
+                    <span class="card-subtitle">Title: </span>
+                    <span>{{ card.title }}</span>
+                </div>
+                    
+                <div>
+                    <span class="card-subtitle">Original Title: </span>
+                    <span>{{ card.ogTitle }}</span>
+                </div>
+                    
+                <div>
+                    <span class="card-subtitle">Original Language: </span>
+                    <span :class="`fi fi-${LanguageFlag(card.ogLang)}`"></span>
+                </div>
+                
+                <div v-if="card.hasOwnProperty('ogCountry')">
+                    <span class="card-subtitle">Origin Country: </span>
+                    <span :class="`fi fi-${card.ogCountry.toLowerCase()}`"></span>
+                </div>
+        
+                <div>
+                    <span class="card-subtitle">Average Vote: </span>
+                    <i v-for="stars, index in StarRatings(VoteRounded(card.avgVote))" :key="index" :class="stars"></i>
+                </div>
+        
+                <div>
+                    <span class="card-subtitle">Total Votes: </span>
+                    <span>{{ card.totVote }}</span>
+                </div>
+        
+                <div>
+                    <span class="card-subtitle">Summary: </span>
+                    <span class="span-summary">{{ card.summary }}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -94,26 +99,49 @@ export default {
 
 <style lang="scss" scoped>
 .custom-card-container{
-    .custom-card-front{
-        img{
-            height: 500px;
-            width: 100%;
-            object-fit: fill;
-        }
-    }
-    .custom-card-back{
+    width: calc(100% / 5 - 1rem);
+    height: 500px;
+
+    .custom-card-frame{
+        height: 100%;
         width: 100%;
-        height: 500px;
-        
-        .card-subtitle{
-            font-weight: bolder;
-            font-size: 1rem;
+        position: relative;
+        transition: transform 1.5s;
+        transform-style: preserve-3d;
+
+        &:hover{
+            cursor: pointer;
+            transform: rotateY(180deg);
         }
-        
-        .span-summary{
-            display: block;
-            overflow-y: auto;
-            max-height: 300px;
+        .custom-card-front{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            backface-visibility: hidden;
+            
+            img{
+                height: 500px;
+                width: 100%;
+                object-fit: fill;
+            }
+        }
+        .custom-card-back{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+            
+            .card-subtitle{
+                font-weight: bolder;
+                font-size: 1rem;
+            }
+            
+            .span-summary{
+                display: block;
+                overflow-y: auto;
+                max-height: 300px;
+            }
         }
     }
 }

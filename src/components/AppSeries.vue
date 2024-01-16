@@ -19,7 +19,7 @@ export default {
     <h1>Series</h1>
     <div v-if="store.seriesNew.length != 0">
       <div class="d-flex">
-        <div class="row">
+        <div class="row w-100">
           <Card v-for="series, index in store.seriesNew" :key="index" :card="series" />
         </div>
       </div>
