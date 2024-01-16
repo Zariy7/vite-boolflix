@@ -17,6 +17,9 @@ export default {
                 return 'cz';
 
             return ogLang;
+        },
+        VoteRounded(avgVote){
+            return (Math.round(avgVote))/2;
         }
     }
 }
@@ -25,34 +28,47 @@ export default {
 <template>
     <div class="w-20 m-2 bg-black text-white custom-card">
 
-        <div class="card-subtitle">Title:</div>
-        <span>{{ card.title }}</span>
+        <div>
+            <span class="card-subtitle">Title: </span>
+            <span>{{ card.title }}</span>
+        </div>
 
-        <div class="card-subtitle">Original Title:</div>
-        <span>{{ card.ogTitle }}</span>
+        <div>
+            <span class="card-subtitle">Original Title: </span>
+            <span>{{ card.ogTitle }}</span>
+        </div>
 
-        <div class="card-subtitle">Original Language:</div>
-        <span :class="`fi fi-${LanguageFlag(card.ogLang)}`"></span>
+        <div>
+            <span class="card-subtitle">Original Language: </span>
+            <span :class="`fi fi-${LanguageFlag(card.ogLang)}`"></span>
+        </div>
         
         <div v-if="card.hasOwnProperty('ogCountry')">
-            <div class="card-subtitle">Origin Country:</div>
+            <span class="card-subtitle">Origin Country: </span>
             <span :class="`fi fi-${card.ogCountry.toLowerCase()}`"></span>
         </div>
 
-        <div class="card-subtitle">Average Vote:</div>
-        <span>{{ card.avgVote }}</span>
+        <div>
+            <span class="card-subtitle">Average Vote: </span>
+            <span>{{ VoteRounded(card.avgVote) }} / 5</span>
+        </div>
 
-        <div class="card-subtitle">Total Votes:</div>
-        <span>{{ card.totVote }}</span>
+        <div>
+            <span class="card-subtitle">Total Votes: </span>
+            <span>{{ card.totVote }}</span>
+        </div>
 
-        <div class="card-subtitle">Summary:</div>
-        <span class="span-summary">{{ card.summary }}</span>
+        <div>
+            <span class="card-subtitle">Summary: </span>
+            <span class="span-summary">{{ card.summary }}</span>
+        </div>
 
     </div>
 </template>
 
 <style lang="scss">
 .custom-card{
+    height: 500px;
     
     .card-subtitle{
         font-weight: bolder;
