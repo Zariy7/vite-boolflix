@@ -68,6 +68,12 @@ export default {
               genres: [],
             }
           
+          store.seriesGenres.forEach(genre => {
+            if((series.genre_ids).includes(genre.id)){
+              seriesObj.genres.push(genre.name);
+            }
+          });
+
           store.seriesNew.push(seriesObj);
         });
         
@@ -81,12 +87,12 @@ export default {
       axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=469f698fb63250e8075d7a89b63fe70e').then((response) =>{
         store.movieGenres = response.data.genres;
         console.log(store.movieGenres);
-      })
+      });
 
-      /* axios.get('https://developer.themoviedb.org/reference/genre-tv-list?api_key=469f698fb63250e8075d7a89b63fe70e').then((response) =>{
+      axios.get('https://api.themoviedb.org/3/genre/tv/list?api_key=469f698fb63250e8075d7a89b63fe70e').then((response) =>{
         store.seriesGenres = response.data.genres;
         console.log(store.seriesGenres);
-      }) */
+      });
     }
   }
 }

@@ -148,7 +148,7 @@ export default {
             .span-summary{
                 display: block;
                 overflow-y: auto;
-                max-height: 300px;
+                max-height: 200px;
             }
         }
     }
