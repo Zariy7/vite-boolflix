@@ -43,13 +43,7 @@ export default {
             return starsArray;
         },
         newCredits(credits){
-            let newCredits = [];
-
-            for(let i = 0; i<5; i++){
-                newCredits.push(credits[i]);
-            }
-
-            return newCredits;
+            return credits.slice(0, 5);
         }
     },
 }
